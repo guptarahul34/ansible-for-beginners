@@ -1,0 +1,21 @@
+---
+- name: this playbook install apache2 in the ubuntu system
+  hosts: dbservers
+  become: true
+  tasks:
+  - name: install apache2 in ubuntu
+    apt:
+      name: apache2
+      state: present
+      update_cache: yes
+
+  - name: enable apache2 service
+    systemd:
+      name: apache2
+      state: started
+      enabled: yes
+
+  - name: copy index.html file to target server
+    copy:
+      src: /opt/ansible/index.html
+      dest: /var/www/html

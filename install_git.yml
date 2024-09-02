@@ -1,0 +1,12 @@
+---
+- name: playbook for installing git 
+  hosts: appservers
+  vars_files:
+    - valut.yml 
+  become: true
+  tasks:
+  - name: installing git in the amazon-managed-node
+    git:
+      repo: https://guptarahul34:{{ password }}@github.com/guptarahul34/ansible-vault.git
+      dest: /opt/ansible_vault
+

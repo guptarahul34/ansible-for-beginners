@@ -1,0 +1,8 @@
+---
+- name: this playbook copy files and directory
+  hosts: all
+  tasks:
+  - name: copy file from one location to another
+    copy:
+      src: /opt/ansible/index.html
+      dest: /home/ansadmin

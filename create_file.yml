@@ -1,0 +1,9 @@
+---
+- name: playbook for creating files and directory
+  hosts: all 
+  # become: true
+  tasks:
+  - name: creating files
+    file:
+      path: /home/ansadmin/demofile
+      state: directory

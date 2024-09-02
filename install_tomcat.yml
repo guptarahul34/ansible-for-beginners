@@ -1,0 +1,30 @@
+---
+- name: this playbook install apache tomcat 
+  hosts: appservers
+  become: true
+  tasks:
+  - name: install java on Rhel Family
+    yum:
+      name: java
+      state: installed
+
+  - name: download apache tomcat 
+    get_url:
+      url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.93/bin/apache-tomcat-9.0.93.tar.gz
+      dest: /opt
+
+  - name: unzip the tomcat file
+    unarchive:
+      src: /opt/apache-tomcat-9.0.93.tar.gz
+      dest: /opt
+      remote_src: yes
+
+  - name: give permissions to startup.sh file
+    file:
+      path: /opt/apache-tomcat-9.0.93/bin/startup.sh
+      mode: 0777
+
+  - name: start tomcat services
+    shell: ./startup.sh &
+    args:
+      chdir: /opt/apache-tomcat-9.0.93/bin
